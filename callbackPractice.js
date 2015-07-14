@@ -1,5 +1,5 @@
 /* In this repo your job is to write functions to make each function call work properly.
-Below is a sample problem 
+Below is a sample problem */
 
   //code here for sayHi
 
@@ -8,8 +8,8 @@ Below is a sample problem
    });
    
 
-and what you should write is the favNum function that makes the code above work, 
-    
+//and what you should write is the sayHi function that makes the code above work,
+
     
    var sayHi = function(str, cb){
     cb(str);
@@ -18,16 +18,19 @@ and what you should write is the favNum function that makes the code above work,
    sayHi('Hi Katie', function(thingToSay){
       alert(thingToSay); //should alert ('Hi Katie')'
    });
-    
-    
-*/
 
 
 
   //Code Here for first
   
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
-first(names, function(firstName){
+
+var first = function(arr, cb)
+{
+  cb(arr[0]);
+};
+
+first(names, function(firstName) {
   console.log('The first name in names is ', firstName)
 });
 
@@ -41,6 +44,13 @@ first(names, function(firstName){
   //Code Here for last
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
+
+var last = function(arr, cb) {
+    var lastIndex = arr.length - 1;
+    cb(arr[lastIndex]);
+
+}
+
 last(names, function(lastName){
   console.log('The last name in names is ', lastName);
 });
@@ -52,17 +62,17 @@ last(names, function(lastName){
 /* NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM ---- NEXT PROBLEM */
 
 
-
-
-
-
   //Code Here for multiply
+
+var multiply = function(a, b, callback) {
+    var product = a * b;
+    callback(product);
+
+};
 
 multiply(4, 3, function(answer){
   console.log('The answer is ', answer); //should console.log 12
 })
-
-
 
 
 
@@ -95,8 +105,31 @@ contains(names, 'Colt', function(result){
     //Code Here for uniq
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
-uniq(names, function(uniqArr){
-  console.log('The new names array with all the duplicate items removed is ', uniqArr);
+
+function uniq(arr, callback) {
+
+    /* https://dreaminginjavascript.wordpress.com/2008/08/22/eliminating-duplicates/ */
+
+    var i,
+        len = arr.length,
+        out = [];
+        obj= {};
+
+    for (i = 0; i < len; i++) {
+        obj[arr[i]] = 0;
+
+    }
+
+    for (i in obj) {
+        out.push(i);
+
+    }
+
+    callback(out);
+}
+
+uniq(names, function(uniqArr) {
+    console.log('The new names array with all duplicates removed is', uniqArr)
 });
 
 
@@ -111,8 +144,16 @@ uniq(names, function(uniqArr){
     //Code Here for each
 
 var names = ['Tyler', 'Cahlan', 'Ryan', 'Colt', 'Tyler', 'Blaine', 'Cahlan'];
-each(names, function(item, indice){
-  console.log('The item in the ' + indice + ' position is ' + item)
+
+var each = function(arr, callback){
+    for(var i = 0; i < arr.length; i++) {
+        callback(arr[i], i);
+    }
+};
+
+
+    each(names, function(item, indice){
+      console.log('The item in the ' + indice + ' position is ' + item)
 });
 
 
@@ -147,6 +188,16 @@ var users = [
     address: '192 East 32 North'
   },
 ];
+
+var getUserById = function(arr, pID, callback) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i].id === pID) {
+            callback(arr[i]);
+        }
+
+    }
+
+};
 
 getUserById(users, '16t', function(user){
   console.log('The user with the id 16t has the email of ' + user.email + ' the name of ' + user.name + ' and the address of ' + user.address); 
